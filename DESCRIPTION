@@ -1,0 +1,25 @@
+Package: ceRtainty
+Type: Package
+Title: Certainty Equivalent 
+Version: 0.0.0
+Authors@R: person(given= "Ariel", 
+                  family= "Soto-Caro",
+                  role = c("aut", "cre"),
+                  email = "arielsotocaro@gmail.com",
+                  comment= c(ORCID = "0000-0001-7008-4009"))
+Description: Compute the certainty equivalents and premium risks
+              as tools for risk-efficiency analysis.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports:
+  dplyr,
+  tidyr,
+  RColorBrewer,
+  stats,
+  base
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

@@ -1,0 +1,152 @@
+---
+title: "ceRtainty: Certainty Equivalent in R"
+author: |
+  | __Ariel Soto-Caro__
+  | <asotocaro@ufl.edu> - <arsoto@udec.cl>
+  | University of Florida & Universidad de Concepcion
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+# output: rmarkdown::html_vignette
+output:
+ pdf_document:
+   number_sections: true
+bibliography: bibliography.bib
+vignette: >
+ %\VignetteIndexEntry{ceRtainty}
+ %\VignetteEngine{knitr::rmarkdown}
+ %\VignetteEncoding{UTF-8}
+---
+
+
+# Introduction
+The Certainty Equivalent analysis for financial projects and, specifically agricultural treatments, is so far implemented by commercial software, to be installed as plugins into Microsoft Excel. The `ceRtainty` is a small package that allows performing this analysis through ___R___, which is free and where the data management procedures are incredibly more flexible and powerful than excel sheets.
+
+The Stochastic Efficiency with respect to a Function (SERF) method presented by [@Hardaker2004] is currently a widely used approach in the risk-efficient evaluation treatments. Mainly SERF offers a bounded estimation, allowing researchers or analysts to use any utility function to represent the decision-maker risk profile. Additionally, unlike other methods, the analyst doesn’t need to know a priori decision-maker’s risk aversion coefficient [@Richardson2008].
+
+SERF methodology has been used to rank treatments either in controlled or in non-controlled experiments. The SERF requires only a small set of data and makes a minimum of assumptions. Specifically, the critical data is a time-series vector of profit values for each treatment and a utility function that represents a farmer’s risk preference. With those elements, we can compute the Certainty Equivalence (CE) and the Risk Premium (RP) for every treatment.
+
+The CE represents the sure amount for which a decision-maker remains indifferent between his/her current wealth and the risky outcome [@Hardaker2004]. The RP is the cost of the risk measure in terms of the production yield. SERF provides to decision-makers a very intuitive tool to make risk-efficient decisions by simply choosing the best-ranked treatment based on the CEs.
+
+The `ceRtainty` package computes the CE values from a profit dataset and its respective risk premiums. Through this vignette, I will present how to use this package.
+
+# Instalation
+
+The package is installed by the command:
+```
+> install.packages("ceRtainty")
+```
+When the package is already installed, should be loaded by:
+
+```
+> library(ceRtainty)
+```
+For a complete functionality, `ceRtainty` also requieres:
+  
+  * __dplyr:__ to organize the data.
+  * __tidyr:__ to organize the data.
+  * __RColorBrewer:__ to prepare the plots.
+
+
+## Functionality
+At this time `ceRtainty` package is able to perform two measures:
+
+* The Certainty Equivalent values (`certainty` function) for a set of profit's treatments or projects, and produces three objects: a table with CE values (`CE_values`), a vector with the risk aversion coefficients (RAC) values (`RAC`), and a plot with the CE values (`CE_plot()`).
+
+* The Risk Premium values (`premium` function), using a data set of CE values and choosing a project or treatment as a base. This measure requires a `certainty` object to perform the computation. This function also creates three objects: a table of RP values [regarding an arbitrary treatment/project selected by the analyist] (`PremiumRisk`), a table with RP in terms of percentage of change regarding the base treatment/project (`PremiumRiskPer100`), and a plot of absolute values of the RP (`RP_plot()`).
+
+Also is necessary to consider, even though CE can be computed for an extensive set of utility functions, the current version of `ceRtainty` package allows two of the most used functions (this list will increase in following versions):
+
+* Power Utility function
+* Exponential Negative Utility function.
+
+## Data set in ceRtainty
+
+The `ceRtainty` package offers a unique (but small) dataset collected from agricultural experimental trials that were used and presented by @sotocaro2019. This data set considers three pesticide treatments plus a non-treated (control) case, in strawberry fields, for seasons 2014-15 & 2015-16. Such experiments were conducted by the Gulf Coast Research and Education Center, University of Florida. Each value represents the farmer's profit, and there are four values for each season.
+
+The data can be invoked in following way:
+
+```
+> data("profitSWG")
+> head(profitSWG)
+     control   fracture  milstop serenade
+1   539.4105 4808.04725 6277.187 6625.230
+2  9923.6830 3838.34400 8709.806 7738.285
+3  4136.7481  984.85261 2495.159 4479.759
+4  -464.1482   22.20683 3077.641 5823.031
+5 12744.1448 7932.79606 1375.915 5425.849
+6  3923.3339 6313.64550 1299.130 5325.025
+```
+
+# Computing the CEs
+
+The function to perform the certainty equivalent is `certainty()`. Is very important to be clear that, depending on the utility function, the RAC should be a relative or an absolute value:
+$$r_a(w)=\frac{r_r(w)}{w}$$
+Where $w$ is the original or initial agent's wealth, $r_a$ is the absolute RAC, and $r_r$ is the relative RAC. Power Utility function uses relative RAC, and Exponential Negative function uses absolute RAC. This is selected into the `certainty` function automatically when the user defines the parameter `utility`. That is why the user can print the RAC values employed into the CE computation, as in the following example:
+
+```{r}
+library(ceRtainty)
+data("profitSWG")
+#
+# Computing the CE values, for a RAC range of 0.5-4.0, and Power utility function.
+#
+
+# Obtaining the CE table
+certainty(data = profitSWG, ival = 0.5, fval = 4, utility = "Power")$CE_values
+# Obtaining the RAC vector
+certainty(data=profitSWG,ival=.5,fval=4,utility="Power")$RAC
+# Performing the CE plot
+certainty(data=profitSWG,ival=.5,fval=4,utility="Power")$CE_plot()
+
+```
+
+
+The initial and final values of the absolute RAC vector are the parameters `ival` and `fval` respectively. The parameter `wealth` is 0 by default. The code computes one observation of the CE for each observation on the profit vectors. That means, when the profit vector has a length of $n$, then `certainty` compute a RAC vector with $n$ values between `ival` and `fval`.
+
+When the analysis considers too many projects or treatments simultaneously, the plot could be unclear and analyze the table instead is recommended. It is possible to perform this analysis with only one project, but with at least three observation per project.
+
+
+
+# Computing the RP
+The risk premium is a measure to compare among CEs. In consequence, before to compute the RP is required to compute the CE values. Therefore, the procedure is: compute the CEs, stored them in an object, and then considered such an object as the dataset for the `premium` function. An example of this is presented below:
+
+```{r}
+library(ceRtainty)
+data("profitSWG")
+#
+# Computing and storing the CE values using Power utility function
+# 
+ces <- certainty(data = profitSWG, ival = 0.5, fval = 4, utility = "Power")
+
+ces_values  <- ces$CE_values  # store CE table
+ces_rac     <- ces$RAC        # store RAC vector
+
+# Computing the RP values respect to SERENADE treatment
+premium(tbase = "serenade",ce_data = ces_values, rac = ces_rac, utility = "Power")$PremiumRisk
+
+# Computing the RP values in percentage respect to SERENADE treatment
+premium(tbase = "serenade",ce_data = ces_values, rac = ces_rac, utility = "Power")$PremiumRiskPer100
+
+# Plotting the RP absolute values
+premium(tbase = "serenade",ce_data = ces_values, rac = ces_rac, utility = "Power")$RP_plot()
+
+```
+
+
+The user must incorporate the utility function manually, and have to be the same employed in the CE computation.
+
+
+# Generating Risk Aversion Coefficients
+According to @Hardaker2004 the Power utility function, which uses relative RAC, must adjust the RAC regarding the number of digits in the profit, following the formula:
+$$RAC_a = 1 - RAC^{d(|int(max(\pi))|-1)}$$
+Where $RAC_a$ is the adjusted RAC, $\pi$ is the profit vector, $int$ is the integer operator, and $d$ is operator to obtain the amount or number of digits for a certain number.
+
+In this case, the user must consider the RAC to employ here have to be a relative RAC (RRAC). Is not necessary this adjustment for the absolute RAC (ARAC). When the user performs the CE computation with `certainty` function, the adjusted RAC is computed automatically. But, if the user only wants to calculate the RACa, can employ the function `rac_generator` through setting the initial and final value (`ini` and `fin` respectively) of the RAC vector, and the profit dataset:
+
+```{r}
+library(ceRtainty)
+data("profitSWG")
+
+rac_generator(data = profitSWG$control, ini = 0.5, fin = 4.0)
+```
+
+# References
+
