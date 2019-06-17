@@ -8,7 +8,8 @@ Install the package from github as usual:
 
 ```{r eval = FALSE}
 library(devtools)
-install_github("ArielSotoCaro/ceRtainty")
+install.package(ceRtainty)
+# install_github("ArielSotoCaro/ceRtainty")
 ```
 
 ## Usage
