@@ -1,4 +1,4 @@
-#' Plot class function
+#' Plot Method function
 #' @param data ...
 #' @param rac ...
 #' @param rac_ini ...
@@ -11,8 +11,6 @@
 plot.ceRtainty <- function(CER){
 
 if(CER$Utility == 'Power'){
-
-
 
   if(CER$RAC$rac_ini == CER$RAC$rac_fin){
 

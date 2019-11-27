@@ -2,7 +2,7 @@
 % Please edit documentation in R/plot.ceRtainty.R
 \name{plot.ceRtainty}
 \alias{plot.ceRtainty}
-\title{Plot class function}
+\title{Plot Method function}
 \usage{
 \method{plot}{ceRtainty}(CER)
 }
@@ -18,5 +18,5 @@
 \item{rac_len}{...}
 }
 \description{
-Plot class function
+Plot Method function
 }
