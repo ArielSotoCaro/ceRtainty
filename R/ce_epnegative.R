@@ -68,23 +68,22 @@ ce_epnegative <- function(data,rac_ini,rac_fin,weight=0){
     names(ceExpNeg) <- names_treatments
 
 
-    if(rac_ini == rac_fin){
-
-      plot_CE_epneg <- function(){plot_ce_en(data = ceExpNeg,
-                                             rac  = RAC)}
-
-    } else if(rac_ini != rac_fin){
-
-      plot_CE_epneg <- function(){plot_ce_en(data    = ceExpNeg,
-                                             rac     = 0,
-                                             rac_ini = rac_ini,
-                                             rac_fin = rac_fin,
-                                             rac_len = n)}
-
-    }
+    # if(rac_ini == rac_fin){
+    #
+    #   plot_CE_epneg <- function(){plot_ce_en(data = ceExpNeg,
+    #                                          rac  = RAC)}
+    #
+    # } else if(rac_ini != rac_fin){
+    #
+    #   plot_CE_epneg <- function(){plot_ce_en(data    = ceExpNeg,
+    #                                          rac     = 0,
+    #                                          rac_ini = rac_ini,
+    #                                          rac_fin = rac_fin,
+    #                                          rac_len = n)}
+    #
+    # }
 
     invisible(list(CE_table = ceExpNeg,
-                   CE_plot  = plot_CE_epneg,
                    ARAC     = RAC$r))
   }
 

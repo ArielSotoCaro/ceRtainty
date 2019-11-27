@@ -7,9 +7,9 @@
 RACa(rac, data)
 }
 \arguments{
-\item{rac}{An scalar with the value of the relative RAC}
+\item{rac}{An scalar with the value of the relative RAC.}
 
-\item{data}{Dataset to weight the RAC}
+\item{data}{Dataset to weight the RAC.}
 }
 \value{
 This function create an adjustment to the relative risk

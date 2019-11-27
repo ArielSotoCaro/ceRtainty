@@ -1,4 +1,4 @@
-#' RAC Generator
+#' RAC Generator function.
 #'
 #' @export
 #'
@@ -35,14 +35,14 @@ rac_generator <- function(data,ini,fin){
   eg_lst  <- list()
   eg_vec  <- matrix(0,eg$lenght,1)
   ncol    <- ncol(as.matrix(data))
-  data.m  <- as.matrix(data)
+  data_m  <- as.matrix(data)
 
   for(i in 1:ncol){
 
     for(j in 1:eg$lenght){
 
       eg_vec[j] <- RACa(rac  = eg$r[j],
-                        data = data.m[,i]
+                        data = data_m[,i]
       )
 
     }

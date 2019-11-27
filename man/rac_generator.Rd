@@ -2,7 +2,7 @@
 % Please edit documentation in R/rac_generator.R
 \name{rac_generator}
 \alias{rac_generator}
-\title{RAC Generator}
+\title{RAC Generator function.}
 \usage{
 rac_generator(data, ini, fin)
 }
@@ -17,7 +17,7 @@ rac_generator(data, ini, fin)
 Produce a single vector of adjusted RACs.
 }
 \description{
-RAC Generator
+RAC Generator function.
 }
 \details{
 Create a vector with the adjusted relative risk aversion

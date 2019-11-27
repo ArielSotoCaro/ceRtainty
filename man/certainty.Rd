@@ -52,7 +52,7 @@ c1 <- certainty(data    = profitSWG,
                 utility = "Power")
 c1$CE_values # Table with CE values
 c1$RAC       # RAC vector used in CE computation
-c1$CE_plot() # Invoking the CE plot
+plot(c1)     # Invoking the CE plot
 
 # To use the ExpNeg function, it is required the RRAC (ARAC/wealth)
 # so we can compute the mean value among all profit in the dataset.
@@ -68,7 +68,7 @@ c1 <- certainty(data    = profitSWG,
 
 c1$CE_values # Table with CE values
 c1$RAC       # RAC vector used in CE computation
-c1$CE_plot() # Invoking the CE plot
+plot(c1)
 
 ## Example 2. Using the example values of Hardaker et al. (2004)
 dt <- data.frame(treatment=c(100,125,135,142,147,150,153,158,163,175,195))
@@ -86,7 +86,7 @@ c2 <- certainty(data    = dt,
 
 c2$CE_values
 c2$RAC
-c2$CE_plot()
+plot(c2)
 }
 \references{
 Hardaker, J.B., Richardson, J.W., Lien, G., &

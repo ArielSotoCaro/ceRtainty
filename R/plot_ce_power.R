@@ -14,6 +14,7 @@
 #' @importFrom graphics points
 #' @importFrom graphics legend
 
+
 plot_ce_power <- function(data,rac=0,rac_ini=0,rac_fin=1,rac_len=10){
 
   names_treatments <- names(data)
@@ -24,6 +25,7 @@ plot_ce_power <- function(data,rac=0,rac_ini=0,rac_fin=1,rac_len=10){
 
   if(n_treat == 1 & n == 1){
     plot(unlist(rac[1,1]),
+    # plot(rac[1],
          unlist(data[1,1]),
          pch  = 16,
          type = 'b',

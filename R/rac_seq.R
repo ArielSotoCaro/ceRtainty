@@ -1,10 +1,10 @@
-#' RAC Sequence generator
+#' Risk Averse Coefficient (RAC) sequence generator
 #'
-#' @param ini The initial value for the RAC
-#' @param fin The final value for the RAC
-#' @param len The Length of the vector to creates
+#' @param ini The initial value for the RAC.
+#' @param fin The final value for the RAC.
+#' @param len The Length of the vector to creates.
 #'
-#' @return Vector of RACs
+#' @return Vector of RACs.
 
 rac_seq <- function(ini,fin,len){
 

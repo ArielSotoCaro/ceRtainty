@@ -13,12 +13,12 @@ ce_p <- function(profit,rac,weight=0){
 
   if(rac == 0){
 
-    CEpower <- mean(profit,na.rm=T)
+    CEpower <- mean(profit, na.rm = TRUE)
 
   } else {
 
-    su      <- sum((profit+weight)^(1-rac), na.rm=T)
-    CEpower <- ((su/length(profit))^(1/(1-rac))) - weight
+    su      <- sum((profit + weight)^(1 - rac), na.rm = TRUE)
+    CEpower <- ((su / length(profit))^(1 / (1 - rac))) - weight
 
   }
 

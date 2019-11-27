@@ -2,21 +2,21 @@
 % Please edit documentation in R/rac_len.R
 \name{rac_len}
 \alias{rac_len}
-\title{Define the length of the Risk Aversion Coefficient, RAC.}
+\title{Define the length of the Risk Aversion Coefficient (RAC) vector.}
 \usage{
 rac_len(ini, fin, data)
 }
 \arguments{
-\item{ini}{The initial value of the RAC sequence}
+\item{ini}{The initial value of the RAC sequence.}
 
-\item{fin}{The final value of the RAC sequence}
+\item{fin}{The final value of the RAC sequence.}
 
-\item{data}{Original data, could be a vector or a matrix}
+\item{data}{Original data, could be a vector or a matrix.}
 }
 \value{
-Two elements are generated: "r" is the RAC vector, and "length" is
+Two elements are generated: \code{r} is the RAC vector, and \code{length} is
 a scalar with the number of elements on RAC vector.
 }
 \description{
-Define the length of the Risk Aversion Coefficient, RAC.
+Define the length of the Risk Aversion Coefficient (RAC) vector.
 }

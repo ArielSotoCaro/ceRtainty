@@ -51,22 +51,10 @@ ce_power <- function(data,rac_ini,rac_fin,weight=0){
   cePower        <- as.data.frame(ce_lst)
   names(cePower) <- names_treatments
 
-  if(rac_ini == rac_fin){
-
-    plot_CE_power <- function(){plot_ce_power(data = cePower,
-                                              rac  = RAC)}
-
-  } else if(rac_ini != rac_fin){
-
-    plot_CE_power <- function(){plot_ce_power(data    = cePower,
-                                              rac     = 0,
-                                              rac_ini = rac_ini,
-                                              rac_fin = rac_fin,
-                                              rac_len = n)}
-
-  }
 
   invisible(list(CE_table = cePower,
-                 CE_plot  = plot_CE_power,
                  RRAC     = RAC))
+
+
+
 }

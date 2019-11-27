@@ -2,20 +2,20 @@
 % Please edit documentation in R/rac_seq.R
 \name{rac_seq}
 \alias{rac_seq}
-\title{RAC Sequence generator}
+\title{Risk Averse Coefficient (RAC) sequence generator}
 \usage{
 rac_seq(ini, fin, len)
 }
 \arguments{
-\item{ini}{The initial value for the RAC}
+\item{ini}{The initial value for the RAC.}
 
-\item{fin}{The final value for the RAC}
+\item{fin}{The final value for the RAC.}
 
-\item{len}{The Length of the vector to creates}
+\item{len}{The Length of the vector to creates.}
 }
 \value{
-Vector of RACs
+Vector of RACs.
 }
 \description{
-RAC Sequence generator
+Risk Averse Coefficient (RAC) sequence generator
 }
